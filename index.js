@@ -85,8 +85,9 @@ module.exports = function (options) {
   var invalidate = function(callback){
     if(files.length == 0) return callback();
 
+    const GLOBAL_TILDE_REGEX = /~/g;
     files = files.map(function(file) {
-      return '/' + file;
+      return ('/' + file).replace(GLOBAL_TILDE_REGEX, "%7E");
     });
 
     cloudfront.createInvalidation({
